@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { TimeTypeService } from './services/time-type.service';
+import { TimeType } from './services/time-type.service';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +8,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-
+  times: TimeType[] = inject(TimeTypeService).getValues();
 }
