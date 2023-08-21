@@ -21,4 +21,10 @@ export class TimeComponent implements AfterViewInit {
         console.log(this.timeElement?.nativeElement);
       }
   }
+
+  getWidth(): number {
+    if (this.type == TimeType.Minutes) return 80;
+    if (this.type == TimeType.Seconds) return 60;
+    return 100;
+  }
 }
