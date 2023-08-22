@@ -1,6 +1,8 @@
 import { PlatformLocation } from '@angular/common';
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild, inject } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild, inject } from '@angular/core';
 import { Input } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { CurrentTimesService } from 'src/app/services/current-times.service';
 import { PaletteService } from 'src/app/services/palette.service';
 import { TimeType } from 'src/app/services/time-type.service';
 
@@ -9,17 +11,24 @@ import { TimeType } from 'src/app/services/time-type.service';
   templateUrl: './time.component.html',
   styleUrls: ['./time.component.scss']
 })
-export class TimeComponent implements AfterViewInit {
+export class TimeComponent implements OnInit, OnDestroy {
   @Input() type!: TimeType;
 
   palette: PaletteService = inject(PaletteService);
 
+  percentage: number = 0;
+
+  currentTimes: CurrentTimesService = inject(CurrentTimesService);
+  subscription!: Subscription;
+
   @ViewChild('timeElement', { read: ElementRef }) timeElement: ElementRef | undefined;
 
-  ngAfterViewInit(): void {
-      if (this.type == TimeType.Hours) {
-        console.log(this.timeElement?.nativeElement);
-      }
+  ngOnInit(): void {
+    this.subscription = this.currentTimes.times$.subscribe(_ => this.percentage = this.currentTimes.getPercentage(this.type));
+  }
+
+  ngOnDestroy(): void {
+      this.subscription.unsubscribe();
   }
 
   getWidth(): number {
