@@ -3,16 +3,23 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
 import { FooterComponent } from './components/footer/footer.component';
-import { TimeComponent } from './components/time/time.component';
+import { TimeComponent } from './time-v1/components/time/time.component';
+import { TimeV1Component } from './time-v1/time-v1.component';
+import { TimeV2Component } from './time-v2/time-v2.component';
+
+import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
   declarations: [
     AppComponent,
     FooterComponent,
     TimeComponent,
+    TimeV2Component,
+    TimeV1Component,
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]
