@@ -50,4 +50,18 @@ export class CurrentTimesService {
 
     return 100*curTime/timeNumber;
   }
+
+  getTime(type: TimeType): number {
+    let result: number = 0;
+
+    if (type == TimeType.Seconds) {
+      result = this.timesSubject.getValue().seconds;
+    } else if (type == TimeType.Minutes) {
+      result = this.timesSubject.getValue().minutes;
+    } else if (type == TimeType.Hours) {
+      result = this.timesSubject.getValue().hours;
+    }
+
+    return result;
+  }
 }
