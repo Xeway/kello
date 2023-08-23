@@ -28,7 +28,7 @@ export class CurrentTimesService {
 
     const seconds = date.getSeconds() + date.getMilliseconds()/1000;
     const minutes = date.getMinutes() + seconds/60;
-    const hours = date.getHours() + minutes/24;
+    const hours = date.getHours() + minutes/60;
 
     this.timesSubject.next({ seconds: seconds, minutes: minutes, hours: hours });
   }
