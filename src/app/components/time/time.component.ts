@@ -17,6 +17,7 @@ export class TimeComponent implements OnInit, OnDestroy {
   palette: PaletteService = inject(PaletteService);
 
   percentage: number = 0;
+  timeText: number = 0;
 
   currentTimes: CurrentTimesService = inject(CurrentTimesService);
   subscription!: Subscription;
@@ -24,7 +25,16 @@ export class TimeComponent implements OnInit, OnDestroy {
   @ViewChild('timeElement', { read: ElementRef }) timeElement: ElementRef | undefined;
 
   ngOnInit(): void {
-    this.subscription = this.currentTimes.times$.subscribe(_ => this.percentage = this.currentTimes.getPercentage(this.type));
+    this.subscription = this.currentTimes.times$.subscribe(time => {
+      this.percentage = this.currentTimes.getPercentage(this.type);
+      if (this.type == TimeType.Seconds) {
+        this.timeText = Math.floor(time.seconds);
+      } else if (this.type == TimeType.Minutes) {
+        this.timeText = Math.floor(time.minutes);
+      } else if (this.type == TimeType.Hours) {
+        this.timeText = Math.floor(time.hours);
+      }
+    });
   }
 
   ngOnDestroy(): void {
