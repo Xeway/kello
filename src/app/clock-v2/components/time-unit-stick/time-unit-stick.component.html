@@ -1,1 +1,1 @@
-<div class="time-stick" #timeStickElement [ngStyle]="{'background-color': palette.get(type), 'left': position+'px'}"></div>
+<div class="time-stick" #timeStickElement [ngStyle]="{'background-color': palette.get(type), 'left': position+'px', 'z-index': palette.getZIndex(type)}"></div>

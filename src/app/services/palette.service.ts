@@ -21,4 +21,16 @@ export class PaletteService {
   get(type: TimeType): string | undefined {
     return this.palette.get(type);
   }
+
+  getZIndex(type: TimeType): number {
+    let i = this.palette.size-1;
+
+    Array.from(this.palette.keys()).every(key => {
+      if (type === key) return false;
+      i--;
+      return true;
+    });
+
+    return i;
+  }
 }
