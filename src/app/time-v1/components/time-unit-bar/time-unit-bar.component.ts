@@ -7,11 +7,11 @@ import { PaletteService } from 'src/app/services/palette.service';
 import { TimeType } from 'src/app/services/time-type.service';
 
 @Component({
-  selector: 'app-time-unit',
-  templateUrl: './time-unit.component.html',
-  styleUrls: ['./time-unit.component.scss']
+  selector: 'app-time-unit-bar',
+  templateUrl: './time-unit-bar.component.html',
+  styleUrls: ['./time-unit-bar.component.scss']
 })
-export class TimeUnitComponent implements OnInit, OnDestroy {
+export class TimeUnitBarComponent implements OnInit, OnDestroy {
   @Input() type!: TimeType;
 
   palette: PaletteService = inject(PaletteService);
