@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, OnDestroy, OnInit, ViewChild, inject } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Input, OnDestroy, ViewChild, inject } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { CurrentTimesService } from 'src/app/services/current-times.service';
 import { PaletteService } from 'src/app/services/palette.service';
@@ -11,7 +11,7 @@ import { TimeType } from 'src/app/services/time-type.service';
   templateUrl: './time-unit-stick.component.html',
   styleUrls: ['./time-unit-stick.component.scss']
 })
-export class TimeUnitStickComponent implements OnInit, OnDestroy {
+export class TimeUnitStickComponent implements AfterViewInit, OnDestroy {
   @Input() type!: TimeType;
   @Input() timeBar?: ElementRef;
 
@@ -24,7 +24,8 @@ export class TimeUnitStickComponent implements OnInit, OnDestroy {
   currentTimes: CurrentTimesService = inject(CurrentTimesService);
   subscription!: Subscription;
 
-  ngOnInit(): void {
+  // not using ngOnInit because ElementRefs can be undefined and it may cause problems as currentTimes service is loaded before view is rendered
+  ngAfterViewInit(): void {
       this.subscription = this.currentTimes.times$.subscribe(time => {
         this.position = this.currentTimes.getPercentage(this.type, this.timeBar?.nativeElement?.clientWidth - this.timeStick?.nativeElement?.offsetWidth);
       });
