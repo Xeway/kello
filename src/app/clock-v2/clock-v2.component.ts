@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnDestroy, OnInit, ViewChild, inject } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, OnDestroy, OnInit, ViewChild, inject } from '@angular/core';
 import { TimeType, TimeTypeService } from '../services/time-type.service';
 import { CurrentTimesService } from '../services/current-times.service';
 import { Subscription } from 'rxjs';
@@ -8,7 +8,7 @@ import { Subscription } from 'rxjs';
   templateUrl: './clock-v2.component.html',
   styleUrls: ['./clock-v2.component.scss']
 })
-export class ClockV2Component implements OnInit, OnDestroy {
+export class ClockV2Component implements OnInit, OnDestroy, AfterViewInit {
   times: TimeType[] = inject(TimeTypeService).getValues();
 
   @ViewChild('timeBarElement', { read: ElementRef }) timeBar?: ElementRef;
@@ -18,6 +18,8 @@ export class ClockV2Component implements OnInit, OnDestroy {
   currentTimes: CurrentTimesService = inject(CurrentTimesService);
   subscription!: Subscription;
 
+  constructor(private cd: ChangeDetectorRef) {}
+
   ngOnInit(): void {
     this.subscription = this.currentTimes.times$.subscribe(time => {
       this.timeText = 
@@ -25,6 +27,10 @@ export class ClockV2Component implements OnInit, OnDestroy {
       `${Math.floor(time.minutes).toLocaleString('en-US', { minimumIntegerDigits: 2, useGrouping: false })}:`+
       `${Math.floor(time.seconds).toLocaleString('en-US', { minimumIntegerDigits: 2, useGrouping: false })}`;
     });
+  }
+
+  ngAfterViewInit(): void {
+      this.cd.detectChanges();
   }
 
   ngOnDestroy(): void {
