@@ -3,20 +3,20 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
 import { FooterComponent } from './components/footer/footer.component';
-import { TimeUnitBarComponent } from './time-v1/components/time-unit-bar/time-unit-bar.component';
-import { TimeV1Component } from './time-v1/time-v1.component';
-import { TimeV2Component } from './time-v2/time-v2.component';
+import { TimeUnitBarComponent } from './clock-v1/components/time-unit-bar/time-unit-bar.component';
+import { ClockV1Component } from './clock-v1/clock-v1.component';
+import { ClockV2Component } from './clock-v2/clock-v2.component';
 
 import { AppRoutingModule } from './app-routing.module';
-import { TimeUnitStickComponent } from './time-v2/components/time-unit-stick/time-unit-stick.component';
+import { TimeUnitStickComponent } from './clock-v2/components/time-unit-stick/time-unit-stick.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     FooterComponent,
     TimeUnitBarComponent,
-    TimeV2Component,
-    TimeV1Component,
+    ClockV2Component,
+    ClockV1Component,
     TimeUnitStickComponent,
   ],
   imports: [

@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TimeV2Component } from './time-v2.component';
+import { ClockV1Component } from './clock-v1.component';
 
-describe('TimeV2Component', () => {
-  let component: TimeV2Component;
-  let fixture: ComponentFixture<TimeV2Component>;
+describe('ClockV1Component', () => {
+  let component: ClockV1Component;
+  let fixture: ComponentFixture<ClockV1Component>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [TimeV2Component]
+      declarations: [ClockV1Component]
     });
-    fixture = TestBed.createComponent(TimeV2Component);
+    fixture = TestBed.createComponent(ClockV1Component);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

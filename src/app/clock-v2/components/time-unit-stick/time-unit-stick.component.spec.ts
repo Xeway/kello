@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TimeUnitStickComponent } from './time-unit-stick.component';
+import { TimeUnitStickComponent } from '../../../time-v2/components/time-unit-stick/time-unit-stick.component';
 
 describe('TimeUnitStickComponent', () => {
   let component: TimeUnitStickComponent;
