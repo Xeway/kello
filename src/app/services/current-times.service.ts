@@ -33,7 +33,7 @@ export class CurrentTimesService {
     this.timesSubject.next({ seconds: seconds, minutes: minutes, hours: hours });
   }
 
-  getPercentage(type: TimeType): number {
+  getPercentage(type: TimeType, scaleTo?: number): number {
     let curTime: number = 0;
     let timeNumber: number = 0;
 
@@ -48,7 +48,9 @@ export class CurrentTimesService {
       timeNumber = 24;
     }
 
-    return 100*curTime/timeNumber;
+    if (typeof scaleTo === 'undefined') scaleTo = 100;
+
+    return scaleTo*curTime/timeNumber;
   }
 
   getTime(type: TimeType): number {

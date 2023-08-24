@@ -1,0 +1,22 @@
+#time {
+    margin: auto;
+    width: 70%;
+    margin-top: 10vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+}
+
+#time-bar {
+    width: 100%;
+    border: 4px solid black;
+    height: 60px;
+    position: relative;
+}
+
+#time-text {
+    font-family: 'Capriola', sans-serif;
+    font-size: 2em;
+    margin: auto;
+}
