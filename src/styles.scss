@@ -40,3 +40,31 @@ body {
     background-color: '#F1FAEE';
     overflow: hidden;
 }
+
+.graduations {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.graduation {
+  width: 5px;
+  height: 10px;
+  background-color: black;
+  position: relative;
+
+  .bottom-graduation-text, .top-graduation-text {
+    font-family: 'Doppio One', sans-serif;
+    position: absolute;
+  }
+
+  .bottom-graduation-text {
+    top: 10px;
+    left: -2px;
+  }
+
+  .top-graduation-text {
+    bottom: 10px;
+    left: -2px;
+  }
+}

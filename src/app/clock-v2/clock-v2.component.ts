@@ -19,7 +19,7 @@ import {Subscription} from 'rxjs';
   styleUrls: ['./clock-v2.component.scss']
 })
 export class ClockV2Component implements AfterViewInit, OnDestroy {
-  times: TimeType[] = inject(TimeTypeService).getValues();
+  timeTypes: TimeTypeService = inject(TimeTypeService);
 
   @ViewChild('timeBarElement', { read: ElementRef }) timeBar?: ElementRef;
   @ViewChild('timeTextElement', { read: ElementRef }) timeText?: ElementRef;
@@ -27,7 +27,13 @@ export class ClockV2Component implements AfterViewInit, OnDestroy {
   currentTimes: CurrentTimesService = inject(CurrentTimesService);
   subscription!: Subscription;
 
-  constructor(private cd: ChangeDetectorRef, private zone: NgZone, private renderer: Renderer2) {}
+  unitNumber24: number[];
+  unitNumber60: number[];
+
+  constructor(private cd: ChangeDetectorRef, private zone: NgZone, private renderer: Renderer2) {
+    this.unitNumber24 = [...Array(this.timeTypes.getUnitNumber(TimeType.Hours)+1).keys()];
+    this.unitNumber60 = [...Array(this.timeTypes.getUnitNumber(TimeType.Seconds)+1).keys()];
+  }
 
   ngAfterViewInit(): void {
     this.zone.runOutsideAngular(() => {

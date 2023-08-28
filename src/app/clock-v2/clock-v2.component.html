@@ -1,6 +1,12 @@
 <div id="time">
-    <div id="time-bar" #timeBarElement>
-        <app-time-unit-stick *ngFor="let time of times" [type]="time" [timeBar]="timeBar"></app-time-unit-stick>
-    </div>
-    <p id="time-text" #timeTextElement></p>
+  <div class="graduations">
+    <div class="graduation" *ngFor="let num of unitNumber24"><span *ngIf="num%3 == 0" class="top-graduation-text">{{ num }}</span></div>
+  </div>
+  <div id="time-bar" #timeBarElement>
+      <app-time-unit-stick *ngFor="let time of timeTypes.getValues()" [type]="time" [timeBar]="timeBar"></app-time-unit-stick>
+  </div>
+  <div class="graduations">
+    <div class="graduation" *ngFor="let num of unitNumber60"><span *ngIf="num%5 == 0" class="bottom-graduation-text">{{ num }}</span></div>
+  </div>
+  <p id="time-text" #timeTextElement></p>
 </div>

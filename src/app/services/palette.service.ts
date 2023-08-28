@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
 import { TimeType } from './time-type.service';
-import { Time } from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PaletteService {
-  palette: Map<TimeType, string> = new Map<TimeType, string>;
+  palette: Map<TimeType, string> = new Map<TimeType, string>();
 
   constructor() {
     this.palette.set(TimeType.Hours, '#1D3557');
