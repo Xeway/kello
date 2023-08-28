@@ -1,41 +1,44 @@
-import { PlatformLocation } from '@angular/common';
-import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild, inject } from '@angular/core';
-import { Input } from '@angular/core';
-import { Subscription } from 'rxjs';
-import { CurrentTimesService } from 'src/app/services/current-times.service';
-import { PaletteService } from 'src/app/services/palette.service';
-import { TimeType } from 'src/app/services/time-type.service';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  inject,
+  Input,
+  NgZone,
+  OnDestroy,
+  Renderer2,
+  ViewChild
+} from '@angular/core';
+import {Subscription} from 'rxjs';
+import {CurrentTimesService} from 'src/app/services/current-times.service';
+import {PaletteService} from 'src/app/services/palette.service';
+import {TimeType} from 'src/app/services/time-type.service';
 
 @Component({
   selector: 'app-time-unit-bar',
   templateUrl: './time-unit-bar.component.html',
   styleUrls: ['./time-unit-bar.component.scss']
 })
-export class TimeUnitBarComponent implements OnInit, OnDestroy {
+export class TimeUnitBarComponent implements AfterViewInit, OnDestroy {
   @Input() type!: TimeType;
 
   palette: PaletteService = inject(PaletteService);
 
-  percentage: number = 0;
-  timeText: number = 0;
-
   currentTimes: CurrentTimesService = inject(CurrentTimesService);
   subscription!: Subscription;
 
-  @ViewChild('timeElement', { read: ElementRef }) timeElement: ElementRef | undefined;
+  @ViewChild('timeBarElement', { read: ElementRef }) timeBar?: ElementRef;
+  @ViewChild('timeTextElement', { read: ElementRef }) timeText?: ElementRef;
 
-  ngOnInit(): void {
-    this.subscription = this.currentTimes.times$.subscribe(time => {
-      this.percentage = this.currentTimes.getPercentage(this.type);
-      
-      this.timeText = Math.floor(this.currentTimes.getTime(this.type));
-      /* if (this.type == TimeType.Seconds) {
-        this.timeText = Math.floor(time.seconds);
-      } else if (this.type == TimeType.Minutes) {
-        this.timeText = Math.floor(time.minutes);
-      } else if (this.type == TimeType.Hours) {
-        this.timeText = Math.floor(time.hours);
-      } */
+  constructor(private zone: NgZone, private renderer: Renderer2) {}
+
+  ngAfterViewInit(): void {
+    this.zone.runOutsideAngular(() => {
+      this.subscription = this.currentTimes.times$.subscribe(time => {
+        this.renderer.setStyle(this.timeBar?.nativeElement, 'width', this.currentTimes.getPercentage(this.type)+'%');
+
+        this.renderer.setProperty(this.timeText?.nativeElement, 'textContent', Math.floor(this.currentTimes.getTime(this.type)));
+      });
     });
   }
 

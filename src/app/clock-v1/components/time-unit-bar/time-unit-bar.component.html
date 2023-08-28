@@ -1,6 +1,6 @@
 <div class="time">
-    <div class="time-bar" #timeElement [ngStyle]="{'width': getWidth()+'%'}">
-        <div [id]="type" [ngStyle]="{'background-color': palette.get(type), 'width': percentage+'%'}"></div>
+    <div class="time-bar" [ngStyle]="{'width': getWidth()+'%'}">
+        <div #timeBarElement [id]="type" [ngStyle]="{'background-color': palette.get(type)}"></div>
     </div>
-    <p class="time-text">{{ timeText }}</p>
+    <p class="time-text" #timeTextElement></p>
 </div>
