@@ -24,4 +24,8 @@ export class TimeTypeService {
   getUnitNumber(type: TimeType): number {
     return <number>this.unitNumbers.get(type);
   }
+
+  getGradation(type: TimeType): number[] {
+    return [...Array(this.getUnitNumber(type)+1).keys()];
+  }
 }

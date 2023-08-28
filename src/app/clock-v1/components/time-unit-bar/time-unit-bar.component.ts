@@ -12,7 +12,7 @@ import {
 import {Subscription} from 'rxjs';
 import {CurrentTimesService} from 'src/app/services/current-times.service';
 import {PaletteService} from 'src/app/services/palette.service';
-import {TimeType} from 'src/app/services/time-type.service';
+import {TimeType, TimeTypeService} from 'src/app/services/time-type.service';
 
 @Component({
   selector: 'app-time-unit-bar',
@@ -21,6 +21,7 @@ import {TimeType} from 'src/app/services/time-type.service';
 })
 export class TimeUnitBarComponent implements AfterViewInit, OnDestroy {
   @Input() type!: TimeType;
+  timeTypes: TimeTypeService = inject(TimeTypeService);
 
   palette: PaletteService = inject(PaletteService);
 
@@ -60,4 +61,6 @@ export class TimeUnitBarComponent implements AfterViewInit, OnDestroy {
     if (this.type == TimeType.Seconds) return 60;
     return 100;
   }
+
+  protected readonly TimeType = TimeType;
 }

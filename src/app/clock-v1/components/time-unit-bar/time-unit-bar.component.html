@@ -2,5 +2,8 @@
     <div class="time-bar" [ngStyle]="{'width': getWidth()+'%'}">
         <div #timeBarElement [id]="type" [ngStyle]="{'background-color': palette.get(type)}"></div>
     </div>
+    <div class="graduations" [ngStyle]="{'width': getWidth()+'%'}">
+      <div class="graduation" *ngFor="let num of timeTypes.getGradation(type)"><span *ngIf="num%(type == TimeType.Hours ? 3 : 5) == 0" class="bottom-graduation-text">{{ num }}</span></div>
+    </div>
     <p class="time-text" #timeTextElement></p>
 </div>

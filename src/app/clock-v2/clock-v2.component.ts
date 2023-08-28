@@ -31,8 +31,8 @@ export class ClockV2Component implements AfterViewInit, OnDestroy {
   unitNumber60: number[];
 
   constructor(private cd: ChangeDetectorRef, private zone: NgZone, private renderer: Renderer2) {
-    this.unitNumber24 = [...Array(this.timeTypes.getUnitNumber(TimeType.Hours)+1).keys()];
-    this.unitNumber60 = [...Array(this.timeTypes.getUnitNumber(TimeType.Seconds)+1).keys()];
+    this.unitNumber24 = this.timeTypes.getGradation(TimeType.Hours);
+    this.unitNumber60 = this.timeTypes.getGradation(TimeType.Seconds);
   }
 
   ngAfterViewInit(): void {
