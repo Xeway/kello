@@ -37,7 +37,16 @@ export class TimeUnitBarComponent implements AfterViewInit, OnDestroy {
       this.subscription = this.currentTimes.times$.subscribe(time => {
         this.renderer.setStyle(this.timeBar?.nativeElement, 'width', this.currentTimes.getPercentage(this.type)+'%');
 
-        this.renderer.setProperty(this.timeText?.nativeElement, 'textContent', Math.floor(this.currentTimes.getTime(this.type)));
+        let currentTime = 0;
+        if (this.type == TimeType.Seconds) {
+          currentTime = time.seconds;
+        } else if (this.type == TimeType.Minutes) {
+          currentTime = time.minutes;
+        } else if (this.type == TimeType.Hours) {
+          currentTime = time.hours;
+        }
+
+        this.renderer.setProperty(this.timeText?.nativeElement, 'textContent', Math.floor(currentTime));
       });
     });
   }
