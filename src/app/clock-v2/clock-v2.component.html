@@ -2,5 +2,5 @@
     <div id="time-bar" #timeBarElement>
         <app-time-unit-stick *ngFor="let time of times" [type]="time" [timeBar]="timeBar"></app-time-unit-stick>
     </div>
-    <p id="time-text">{{ timeText }}</p>
-</div>    
+    <p id="time-text" #timeTextElement></p>
+</div>
