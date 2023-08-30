@@ -4,7 +4,6 @@ import {
   ElementRef,
   inject,
   Input,
-  NgZone,
   OnDestroy,
   Renderer2,
   ViewChild
@@ -31,16 +30,14 @@ export class TimeUnitStickComponent implements AfterViewInit, OnDestroy {
   currentTimes: CurrentTimesService = inject(CurrentTimesService);
   subscription!: Subscription;
 
-  constructor(private zone: NgZone, private renderer: Renderer2) {}
+  constructor(private renderer: Renderer2) {}
 
   // not using ngOnInit because ElementRefs can be undefined and it may cause problems as currentTimes service is loaded before view is rendered
   ngAfterViewInit(): void {
-    this.zone.runOutsideAngular(() => {
-      this.subscription = this.currentTimes.times$.subscribe(time => {
-        const position = this.currentTimes.getPercentage(this.type, this.timeBar?.nativeElement?.clientWidth - this.timeStick?.nativeElement?.offsetWidth);
+    this.subscription = this.currentTimes.times$.subscribe(time => {
+      const position = this.currentTimes.getPercentage(this.type, this.timeBar?.nativeElement?.clientWidth - this.timeStick?.nativeElement?.offsetWidth);
 
-        this.renderer.setStyle(this.timeStick?.nativeElement, 'left', position+'px');
-      });
+      this.renderer.setStyle(this.timeStick?.nativeElement, 'left', position+'px');
     });
   }
 

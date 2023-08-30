@@ -4,7 +4,6 @@ import {
   Component,
   ElementRef,
   inject,
-  NgZone,
   OnDestroy,
   Renderer2,
   ViewChild
@@ -30,21 +29,19 @@ export class ClockV2Component implements AfterViewInit, OnDestroy {
   unitNumber24: number[];
   unitNumber60: number[];
 
-  constructor(private cd: ChangeDetectorRef, private zone: NgZone, private renderer: Renderer2) {
+  constructor(private cd: ChangeDetectorRef, private renderer: Renderer2) {
     this.unitNumber24 = this.timeTypes.getGradation(TimeType.Hours);
     this.unitNumber60 = this.timeTypes.getGradation(TimeType.Seconds);
   }
 
   ngAfterViewInit(): void {
-    this.zone.runOutsideAngular(() => {
-      this.subscription = this.currentTimes.times$.subscribe(time => {
-        const currentDate =
-          `${Math.floor(time.hours).toLocaleString('en-US', { minimumIntegerDigits: 2, useGrouping: false })}:`+
-          `${Math.floor(time.minutes).toLocaleString('en-US', { minimumIntegerDigits: 2, useGrouping: false })}:`+
-          `${Math.floor(time.seconds).toLocaleString('en-US', { minimumIntegerDigits: 2, useGrouping: false })}`;
+    this.subscription = this.currentTimes.times$.subscribe(time => {
+      const currentDate =
+        `${Math.floor(time.hours).toLocaleString('en-US', { minimumIntegerDigits: 2, useGrouping: false })}:`+
+        `${Math.floor(time.minutes).toLocaleString('en-US', { minimumIntegerDigits: 2, useGrouping: false })}:`+
+        `${Math.floor(time.seconds).toLocaleString('en-US', { minimumIntegerDigits: 2, useGrouping: false })}`;
 
-        this.renderer.setProperty(this.timeText?.nativeElement, 'textContent', currentDate);
-      });
+      this.renderer.setProperty(this.timeText?.nativeElement, 'textContent', currentDate);
     });
 
     this.cd.detectChanges();

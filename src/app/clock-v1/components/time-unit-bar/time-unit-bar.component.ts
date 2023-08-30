@@ -4,7 +4,6 @@ import {
   ElementRef,
   inject,
   Input,
-  NgZone,
   OnDestroy,
   Renderer2,
   ViewChild
@@ -31,24 +30,22 @@ export class TimeUnitBarComponent implements AfterViewInit, OnDestroy {
   @ViewChild('timeBarElement', { read: ElementRef }) timeBar?: ElementRef;
   @ViewChild('timeTextElement', { read: ElementRef }) timeText?: ElementRef;
 
-  constructor(private zone: NgZone, private renderer: Renderer2) {}
+  constructor(private renderer: Renderer2) {}
 
   ngAfterViewInit(): void {
-    this.zone.runOutsideAngular(() => {
-      this.subscription = this.currentTimes.times$.subscribe(time => {
-        this.renderer.setStyle(this.timeBar?.nativeElement, 'width', this.currentTimes.getPercentage(this.type)+'%');
+    this.subscription = this.currentTimes.times$.subscribe(time => {
+      this.renderer.setStyle(this.timeBar?.nativeElement, 'width', this.currentTimes.getPercentage(this.type)+'%');
 
-        let currentTime = 0;
-        if (this.type == TimeType.Seconds) {
-          currentTime = time.seconds;
-        } else if (this.type == TimeType.Minutes) {
-          currentTime = time.minutes;
-        } else if (this.type == TimeType.Hours) {
-          currentTime = time.hours;
-        }
+      let currentTime = 0;
+      if (this.type == TimeType.Seconds) {
+        currentTime = time.seconds;
+      } else if (this.type == TimeType.Minutes) {
+        currentTime = time.minutes;
+      } else if (this.type == TimeType.Hours) {
+        currentTime = time.hours;
+      }
 
-        this.renderer.setProperty(this.timeText?.nativeElement, 'textContent', Math.floor(currentTime));
-      });
+      this.renderer.setProperty(this.timeText?.nativeElement, 'textContent', Math.floor(currentTime));
     });
   }
 
