@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable, NgZone} from '@angular/core';
 import { TimeType } from './time-type.service';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 
@@ -15,12 +15,16 @@ export class CurrentTimesService {
   timesSubject: BehaviorSubject<Times>;
   times$: Observable<Times>;
 
-  constructor() {
+  constructor(private zone: NgZone) {
     this.timesSubject = new BehaviorSubject<Times>({seconds: 0, minutes: 0, hours: 0});
     this.times$ = this.timesSubject.asObservable();
 
-    this.#updateTimes();
-    setInterval(() => { this.#updateTimes() }, 1);
+    this.zone.runOutsideAngular(() => {
+      this.#updateTimes();
+      setInterval(() => {
+        this.#updateTimes()
+      }, 1);
+    });
   }
 
   #updateTimes() {
