@@ -1,0 +1,6 @@
+<ul id="colors">
+  <li *ngFor="let timeType of timeTypes.getValues()">
+    <div class="box-color" [ngStyle]="{'background-color': palette.get(timeType)}"></div>
+    {{ timeType }}
+  </li>
+</ul>

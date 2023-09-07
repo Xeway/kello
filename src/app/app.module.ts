@@ -9,6 +9,7 @@ import { ClockV2Component } from './clock-v2/clock-v2.component';
 import { AppRoutingModule } from './app-routing.module';
 import { TimeUnitStickComponent } from './clock-v2/components/time-unit-stick/time-unit-stick.component';
 import { NavigationComponent } from './components/navigation/navigation.component';
+import { ColorsComponent } from './components/colors/colors.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { NavigationComponent } from './components/navigation/navigation.componen
     ClockV1Component,
     TimeUnitStickComponent,
     NavigationComponent,
+    ColorsComponent,
   ],
   imports: [
     BrowserModule,

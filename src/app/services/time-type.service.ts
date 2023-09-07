@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 
 export enum TimeType {
-  Hours = "HOURS",
-  Minutes = "MINUTES",
-  Seconds = "SECONDS"
+  Hours = "Hours",
+  Minutes = "Minutes",
+  Seconds = "Seconds"
 }
 
 @Injectable({
